@@ -1,0 +1,53 @@
+
+@import './variables.less';
+// @font-face { font-family:'electronicFont'; src: url("../font/ds-digital.woff.ttf"); }
+// @font-face { font-family:'blFont'; src: url("../font/ds-baoli.TTF"); }
+p{
+    margin:0;
+}
+a{
+  text-decoration: none;
+}
+h4{
+    font-weight: 400;
+}
+ul,li{
+    margin: 0;
+    list-style: none;
+}
+ul{
+    padding: 0;
+}
+html,body,#app{
+    font-size: 14px;
+    height: 100%;
+}
+body{
+    color:rgba(0,0,0,.85);
+    margin: 0;
+    padding: 0;
+}
+.clearfix:after {
+    content: '';
+    line-height: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    display: block;
+}
+// elem 样式reset
+//滚动条样式
+.scrollbar-wrapper{
+    height:calc(100vh - @navbar-height);
+}
+.el-scrollbar__wrap{
+    overflow-x: hidden; // 去除横向滚动条（不知道原因先这样处理）
+}
+.el-breadcrumb__inner{
+    color: @gray-text;
+}
+.el-breadcrumb__separator {
+    margin: 0 10px;
+    font-weight: 400;
+    color: @gray-text;
+}
