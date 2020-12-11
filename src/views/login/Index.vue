@@ -5,10 +5,10 @@
         <h3 class="title">{{formTitle}}</h3>
       </div>
       <a-form-item label="用户名：" v-bind="validateInfos.name">
-        <a-input v-model:value="modelRef.name" />
+        <a-input v-model:value="formData.name" />
       </a-form-item>
-      <a-form-item label="密码：" v-bind="validateInfos['password']">
-        <a-input v-model:value="modelRef.password" />
+      <a-form-item label="密码：" v-bind="validateInfos.password">
+        <a-input v-model:value="formData.password" />
       </a-form-item>
       <a-form-item :wrapper-col="{ span: 20, offset: 4 }">
         <a-button type="primary" class="submit-btn" @click="handleLogin">
@@ -18,20 +18,31 @@
     </a-form>
   </div>
 </template>
-<script>
-import { reactive, toRaw, ref, defineComponent } from 'vue';
+<script lang="ts">
+import { reactive, toRaw, defineComponent, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { useForm } from '@ant-design-vue/use';
+interface FormProps {
+  name: string;
+  password: string,
+  code?: string
+}
+interface DataProps {
+    formTitle: string;
+    formData: FormProps;
+}
 export default defineComponent({
   setup() {
-    const formTitle = ref('vue-base-frame');
-    const modelRef = reactive({
-      name: 'admin',
-      password: 'admin'
+    const data : DataProps = reactive({
+      formTitle: 'vue-base-frame',
+      formData: {
+        name: 'admin',
+        password: 'admin'
+      }
     });
-    const router = useRouter()
+    const router = useRouter();
     const { resetFields, validate, validateInfos } = useForm(
-      modelRef,
+      data.formData,
       reactive({
         name: [
           {
@@ -52,7 +63,7 @@ export default defineComponent({
       validate()
         .then((res) => {
           router.push('/home');
-          console.log(res, toRaw(modelRef));
+          console.log(res, toRaw(data.formData));
         })
         .catch((err) => {
           console.log('error', err);
@@ -61,14 +72,14 @@ export default defineComponent({
     const reset = () => {
       resetFields();
     };
+    const refData = toRefs(data)
     return {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
       validateInfos,
       reset,
-      modelRef,
       handleLogin,
-      formTitle
+      ...refData
     };
   }
 });

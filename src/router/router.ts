@@ -13,7 +13,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'app',
-    redirect: '/home',
+    redirect: '/login',
     component: () => import('@/components/layout/Index.vue'),
     children: [
       {
