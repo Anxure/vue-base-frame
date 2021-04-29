@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/login',
@@ -14,7 +14,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'app',
     redirect: '/login',
-    component: () => import('@/components/layout/Index.vue'),
+    component: () => import('@/layout/Index.vue'),
     children: [
       {
         path: '/home',
@@ -33,7 +33,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('@/views/Home/Index.vue'),
   },
   {
     path: '/about',

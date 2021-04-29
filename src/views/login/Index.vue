@@ -34,7 +34,7 @@ interface DataProps {
 export default defineComponent({
   setup() {
     const data : DataProps = reactive({
-      formTitle: 'vue-base-frame',
+      formTitle: 'vue3-base-frame',
       formData: {
         name: 'admin',
         password: 'admin'
@@ -58,7 +58,7 @@ export default defineComponent({
         ]
       })
     );
-    const handleLogin = (e) => {
+    const handleLogin = (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       validate()
         .then((res) => {
