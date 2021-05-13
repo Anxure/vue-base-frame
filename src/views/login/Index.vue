@@ -90,7 +90,7 @@ export default defineComponent({
   flex-direction: column;
   overflow: auto;
   height: 100vh;
-  background-image: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
+  background-image: url('../../assets/image/login/login.svg');
   background-repeat: no-repeat;
   background-position: center 110px;
   background-size: 100%;
