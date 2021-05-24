@@ -4,7 +4,7 @@ interface AppState {
 }
 import { layoutSetting } from '@/config/globalSetting'
 export default {
-  namespace: true,
+  namespaced: true,
   state: (): AppState => ({
     collapsed: false,
     theme: layoutSetting.theme

@@ -5,15 +5,6 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 const openGzip = false // 是否开启gzip压缩
 const IS_ANALYZ = true // 是否开启打包分析
 const productionGzipExtensions = ['js', 'css', 'json', 'txt', 'html', 'ico', 'svg'];
-const path = require('path');
-function addStyleResource (rule) {
-  rule
-    .use('style-resource')
-    .loader('style-resources-loader')
-    .options({
-      patterns: [path.resolve(__dirname, './src/assets/style/variables.less')]
-    });
-}
 
 module.exports = {
   // 项目部署的基本路径
@@ -57,10 +48,10 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
-    types.forEach(type =>
-      addStyleResource(config.module.rule('less').oneOf(type))
-    );
+    // const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+    // types.forEach(type =>
+    //   addStyleResource(config.module.rule('less').oneOf(type))
+    // );
     // 移除项目中的console,debugger
     config.optimization.minimizer('terser').tap(args => {
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -114,7 +105,15 @@ module.exports = {
     loaderOptions: {
       less: {
         lessOptions: {
-          javascriptEnabled: true
+          javascriptEnabled: true,
+          modifyVars: {
+            // 导入自定义变量
+            hack: `true; @import "${resolve('src/assets/style/variables.less')}"`,
+            /* less 变量覆盖，用于自定义 ant design 主题 */
+            // 'primary-color': '#F00',
+            // 'link-color': '#F5222D',
+            // 'border-radius-base': '4px',
+          },
         }
       }
     }
@@ -124,17 +123,16 @@ module.exports = {
     progress: true,
     port: 8089, // 端口号
     https: false, // https:{type:Boolean}
-    open: true, // 配置自动启动浏览器  open: 'Google Chrome'-默认启动谷歌
-    proxy: {
-      '/api': {
-        ws: false,
-        target: process.env.VUE_APP_BASE_API,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    },
-    // before: require('./mock/index.js')
+    open: false, // 配置自动启动浏览器  open: 'Google Chrome'-默认启动谷歌
+    // proxy: {
+    //   '/api': {
+    //     ws: false,
+    //     target: process.env.VUE_APP_BASE_API,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       '^/api': ''
+    //     }
+    //   }
+    // },
   }
 }

@@ -22,10 +22,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.logo{
+ .logo{
   height: 32px;
   margin: 16px;
-  color:#fff;
   font-size: 30px;
   text-align: center;
   line-height: 32px;

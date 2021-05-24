@@ -9,7 +9,9 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/404',
     component: () => import('@/views/errorPage/404.vue')
-  },
+  }
+]
+export const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'app',
@@ -19,7 +21,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       {
         path: '/home',
         name: 'Home',
-        component: () => import('@/views/home/Index.vue')
+        component: () => import('@/views/home/Index.vue'),
+        meta: { title: '我的看板' }
       },
       {
         path: '/about',
@@ -29,18 +32,3 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     ]
   }
 ]
-// export const asyncRoutes: Array<RouteRecordRaw> = [
-//   {
-//     path: '/',
-//     name: 'Home',
-//     component: () => import('@/views/Home/Index.vue'),
-//   },
-//   {
-//     path: '/about',
-//     name: 'About',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-//   },
-// ]

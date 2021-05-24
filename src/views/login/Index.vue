@@ -4,14 +4,14 @@
       <div class="title-container">
         <h3 class="title">{{formTitle}}</h3>
       </div>
-      <a-form-item label="用户名：" v-bind="validateInfos.name">
-        <a-input v-model:value="formData.name" />
+      <a-form-item label="用户名：" v-bind="validateInfos.username">
+        <a-input v-model:value="formData.username" placeholder="默认账号为admin/test" />
       </a-form-item>
       <a-form-item label="密码：" v-bind="validateInfos.password">
-        <a-input v-model:value="formData.password" />
+        <a-input-password v-model:value="formData.password" placeholder="默认密码为123456" :visibilityToggle="false" />
       </a-form-item>
       <a-form-item :wrapper-col="{ span: 20, offset: 4 }">
-        <a-button type="primary" class="submit-btn" @click="handleLogin">
+        <a-button type="primary" class="submit-btn" @click.enter="handleLogin">
           登录
         </a-button>
       </a-form-item>
@@ -22,29 +22,29 @@
 import { reactive, toRaw, defineComponent, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { useForm } from '@ant-design-vue/use';
-interface FormProps {
-  name: string;
-  password: string,
-  code?: string
-}
+import { login, getMenu } from '@/api/user'
+import {LoginParams, MenuParams} from '@/api/model/userModel'
+import { setStore } from '@/utils/storage'
+import { useStore } from 'vuex'
 interface DataProps {
     formTitle: string;
-    formData: FormProps;
+    formData: LoginParams;
 }
 export default defineComponent({
   setup() {
-    const data : DataProps = reactive({
+    const loginData : DataProps = reactive({
       formTitle: 'vue3-base-frame',
       formData: {
-        name: 'admin',
-        password: 'admin'
+        username: 'admin',
+        password: ''
       }
     });
     const router = useRouter();
-    const { resetFields, validate, validateInfos } = useForm(
-      data.formData,
+    const store = useStore()
+    const { validate, validateInfos } = useForm(
+      loginData.formData,
       reactive({
-        name: [
+        username: [
           {
             required: true,
             message: '请输入用户名'
@@ -58,27 +58,33 @@ export default defineComponent({
         ]
       })
     );
+    const getMenuTree = async (user: MenuParams) => {
+      const menu = await getMenu(user)
+      console.log('%cIndex.vue line:63 object', 'color: #007acc;', menu);
+    }
     const handleLogin = (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       validate()
-        .then((res) => {
-          router.push('/home');
-          console.log(res, toRaw(data.formData));
+        .then(async () => {
+          const {result, code} = await login(toRaw(loginData.formData))
+          if (code === 0) {
+            setStore('userInfo', result)
+            store.commit('user/SETUSERINFO', result)
+            router.push('/home');
+            getMenuTree({id: result.id})
+          }
         })
         .catch((err) => {
           console.log('error', err);
         });
     };
-    const reset = () => {
-      resetFields();
-    };
-    const refData = toRefs(data)
+    const refData = toRefs(loginData)
     return {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
       validateInfos,
-      reset,
       handleLogin,
+      getMenuTree,
       ...refData
     };
   }

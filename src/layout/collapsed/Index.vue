@@ -19,7 +19,7 @@ export default defineComponent({
     const collapsed = ref(false);
     function toggleCollapsed() {
       collapsed.value = !collapsed.value;
-      store.commit('TOGGLECOLLAPSED');
+      store.commit('app/TOGGLECOLLAPSED');
     }
     return {
       toggleCollapsed,
@@ -37,6 +37,6 @@ export default defineComponent({
   transition: color 0.3s;
 }
 .trigger:hover {
-  color: #1890ff;
+  color: @primary-color;
 }
 </style>
