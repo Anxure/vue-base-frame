@@ -22,8 +22,8 @@
 import { reactive, toRaw, defineComponent, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { useForm } from '@ant-design-vue/use';
-import { login, getMenu } from '@/api/user'
-import {LoginParams, MenuParams} from '@/api/model/userModel'
+import { login } from '@/api/user'
+import {LoginParams } from '@/api/model/userModel'
 import { setStore } from '@/utils/storage'
 import { useStore } from 'vuex'
 interface DataProps {
@@ -58,10 +58,6 @@ export default defineComponent({
         ]
       })
     );
-    const getMenuTree = async (user: MenuParams) => {
-      const menu = await getMenu(user)
-      console.log('%cIndex.vue line:63 object', 'color: #007acc;', menu);
-    }
     const handleLogin = (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       validate()
@@ -71,7 +67,7 @@ export default defineComponent({
             setStore('userInfo', result)
             store.commit('user/SETUSERINFO', result)
             router.push('/home');
-            getMenuTree({id: result.id})
+            store.dispatch('user/getMenu', {id: result.id})
           }
         })
         .catch((err) => {
@@ -84,7 +80,6 @@ export default defineComponent({
       wrapperCol: { span: 20 },
       validateInfos,
       handleLogin,
-      getMenuTree,
       ...refData
     };
   }

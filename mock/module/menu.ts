@@ -3,13 +3,13 @@ export const menuTree = [
     title: '工作台',
     name: 'dash',
     path: '/workplace',
-    icon: 'biaodan'
+    icon: 'gongzuotai'
   },
   {
     title: '表单页',
     name: 'form',
     path: '/form',
-    icon: 'gongzuotai',
+    icon: 'biaodan',
     children: [
       {
         title: '基础表单',
@@ -27,7 +27,7 @@ export const menuTree = [
     title: '异常页',
     name: 'exception',
     path: '/exception',
-    icon: 'gongzuotai',
+    icon: 'yichangguanli',
     children: [
       {
         title: '403',
@@ -47,13 +47,13 @@ export const testMenuTree = [
     title: '工作台',
     name: 'dash',
     path: '/workplace',
-    icon: 'biaodan'
+    icon: 'gongzuotai'
   },
   {
     title: '表单页',
     name: 'form',
     path: '/form',
-    icon: 'gongzuotai',
+    icon: 'biaodan',
     children: [
       {
         title: '基础表单',
@@ -71,7 +71,7 @@ export const testMenuTree = [
     title: '异常页',
     name: 'exception',
     path: '/exception',
-    icon: 'gongzuotai',
+    icon: 'yichangguanli',
     children: [
       {
         title: '403',

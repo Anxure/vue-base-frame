@@ -1,7 +1,7 @@
 const getStore = (key: string) => {
   return sessionStorage.getItem(key)
 }
-const setStore = (key: string, value: string| number| object) => {
+const setStore = (key: string, value: unknown) => {
   if (typeof value === 'object') {
     return sessionStorage.setItem(key, JSON.stringify(value))
   } else {

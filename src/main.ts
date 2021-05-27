@@ -6,6 +6,7 @@ import { antd } from '@/plugin/antd'
 import store from './store'
 import '@/assets/style/common.less'
 import 'ant-design-vue/dist/antd.less';
+import '@/assets/style/iconfont.css'
 // mock
 import '../mock'
 // import '@/assets/style/variables.less'
