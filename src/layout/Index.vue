@@ -1,14 +1,16 @@
 <template>
   <a-layout class="layout-content">
-     <nav-component>
-       <template #logo>
-         <layout-logo></layout-logo>
-       </template>
-     </nav-component>
+    <nav-component>
+      <template #logo>
+        <layout-logo></layout-logo>
+      </template>
+    </nav-component>
     <a-layout>
-    <side-component></side-component>
+      <a-layout-sider :theme="theme" v-model:collapsed="collapsed" :trigger="null" collapsible>
+        <side-component :collapsed="collapsed"></side-component>
+      </a-layout-sider>
       <a-layout-content>
-        <layout-breadcrumb></layout-breadcrumb>
+        <layout-breadcrumb v-model:collapsed="collapsed"></layout-breadcrumb>
         <div class="app-main" :style="{ margin: '16px', padding: '24px', background: '#fff', minHeight: '280px' }">
           <router-view></router-view>
         </div>
@@ -17,11 +19,12 @@
   </a-layout>
 </template>
 <script lang="ts">
-import NavComponent from '@/layout/nav/Index.vue'
-import SideComponent from '@/layout/sidebar/Index.vue'
-import LayoutLogo from '@/layout/logo/Index.vue'
-import LayoutBreadcrumb from '@/layout/breadcrumb/Index.vue'
-import { defineComponent, reactive, toRefs } from 'vue';
+import NavComponent from '@/layout/nav/Index.vue';
+import SideComponent from '@/layout/sidebar/Index.vue';
+import LayoutLogo from '@/layout/logo/Index.vue';
+import LayoutBreadcrumb from '@/layout/breadcrumb/Index.vue';
+import { defineComponent, ref, computed } from 'vue';
+import { useStore } from 'vuex';
 export default defineComponent({
   components: {
     NavComponent,
@@ -30,12 +33,11 @@ export default defineComponent({
     LayoutBreadcrumb
   },
   setup() {
-    const data = reactive({
-      selectedKeys: ['1']
-    });
-    const refData = toRefs(data);
+    const store = useStore();
+    const collapsed = ref<boolean>(false);
     return {
-      ...refData
+      collapsed,
+      theme: computed(() => store.state.app.theme),
     };
   }
 });

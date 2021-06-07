@@ -21,8 +21,8 @@
       </a-popover>
       <a-dropdown>
         <div class="user-info">
-          <a-avatar class="user-avatar">
-            <template #icon><UserOutlined /></template>
+          <a-avatar class="user-avatar" :src="headerImg">
+            <!-- <template #icon><UserOutlined /></template> -->
           </a-avatar>
           <span class="user-name">{{userInfo.username}}<DownOutlined /></span>
         </div>
@@ -45,14 +45,15 @@
 import { defineComponent, ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router'
-import { FileOutlined, BellOutlined, UserOutlined, DownOutlined } from '@ant-design/icons-vue';
+import { FileOutlined, BellOutlined, DownOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
-import {removeAll} from '@/utils/storage'
+import {removeAll} from '@/utils/storage';
+import headerImg from '@/assets/image/avatar.png';
 export default defineComponent({
   components: {
     FileOutlined,
     BellOutlined,
-    UserOutlined,
+    // UserOutlined,
     DownOutlined
   },
   setup() {
@@ -72,7 +73,8 @@ export default defineComponent({
       userInfo:computed(() => store.state.user.userInfo),
       show: ref<boolean>(true),
       activeKey: ref<string>('1'),
-      loginOut
+      loginOut,
+      headerImg
     };
   }
 });

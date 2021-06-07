@@ -1,10 +1,10 @@
 <template>
   <a-sub-menu :key="menuInfo.name" v-bind="$attrs">
   <template #title>
-    <span>
+     <span class="anticon">
       <i :class="['iconfont', `icon-${menuInfo.icon}`]"></i>
+     </span>
       <span>{{menuInfo.title}}</span>
-    </span>
   </template>
   <template v-for="item in menuInfo.children" :key="item.name">
     <template v-if="!item.children">
@@ -33,11 +33,11 @@ export default {
   //   'sub-menu':
   // },
   created() {
-    // console.log('%cSiderItem.vue line:29 object', 'color: #007acc;', this)
+    // console.log('%cSiderItem.vue line:29 object', 'color: #007acc;', this.$props);
     console.log(11111)
   },
   setup(props) {
-    console.log('%cSiderItem.vue line:29 object', 'color: #007acc;', props);
+    console.log('%cSiderItem.vue line:29 object', 'color: #007acc;', props.menuInfo);
   }
 
 }
