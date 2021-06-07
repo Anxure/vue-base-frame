@@ -35,7 +35,7 @@ export default defineComponent({
     const loginData : DataProps = reactive({
       formTitle: 'vue3-base-frame',
       formData: {
-        username: 'admin',
+        username: '',
         password: ''
       }
     });
@@ -66,8 +66,8 @@ export default defineComponent({
           if (code === 0) {
             setStore('userInfo', result)
             store.commit('user/SETUSERINFO', result)
-            router.push('/home');
             store.dispatch('user/getMenu', {id: result.id})
+            router.push('/workplace');
           }
         })
         .catch((err) => {
