@@ -8,6 +8,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/404',
+    name: '404',
     component: () => import('@/views/exception/404.vue')
   }
 ]
@@ -20,14 +21,14 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/workplace',
-        name: 'Home',
+        name: 'workplace',
         component: () => import('@/views/workPlace/Index.vue'),
         meta: { title: '工作台' }
       },
       {
         path: '/form',
         name: 'form',
-        redirect: '/form/base-form',
+        // redirect: '/form/base-form',
         component: () => import('@/layout/PageView.vue'),
         meta: { title: '表单页' },
         children: [
@@ -48,7 +49,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: '/exception',
         name: 'exception',
-        redirect: '/exception/403',
+        // redirect: '/exception/403',
         component: () => import('@/layout/PageView.vue'),
         meta: { title: '异常页' },
         children: [

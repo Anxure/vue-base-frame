@@ -1,7 +1,7 @@
 export const menuTree = [
   {
     title: '工作台',
-    name: 'dash',
+    name: 'workplace',
     path: '/workplace',
     icon: 'gongzuotai'
   },
