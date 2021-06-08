@@ -6,7 +6,7 @@
       </svg>
     </div>
     <div class="title">抱歉，你当前没有权限访问</div>
-    <a-button class="t-3" type="primary" :loading="loading" @click="repeatLogin">返回首页</a-button>
+    <a-button class="t-3" type="primary" :loading="loading" @click="goToHome">返回首页</a-button>
   </div>
 </template>
 
@@ -15,11 +15,11 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const router = useRouter()
-    function repeatLogin() {
+    function goToHome() {
       router.push('/workplace')
     }
     return {
-      repeatLogin
+      goToHome
     };
   }
 };
