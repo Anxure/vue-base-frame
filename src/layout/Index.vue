@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="layout-content">
+  <a-layout class="layout-content overflow-hidden">
     <nav-component>
       <template #logo>
         <layout-logo></layout-logo>
@@ -11,7 +11,7 @@
       </a-layout-sider>
       <a-layout-content>
         <layout-breadcrumb v-model:collapsed="collapsed"></layout-breadcrumb>
-        <div class="app-main" :style="{ margin: '16px', minHeight: '280px' }">
+        <div class="app-main">
           <router-view></router-view>
         </div>
       </a-layout-content>
