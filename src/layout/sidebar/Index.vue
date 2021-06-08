@@ -37,13 +37,13 @@ export default {
   setup(props) {
     const state = reactive({
       openKeys: [''] as RouteRecordName[],
-      selectedKeys: [] as RouteRecordName[]
     });
     const store = useStore();
     const route = useRoute();
     const menu = computed(() => store.state.user.menu);
     const matchedKeys = route.matched.map((item) => item.name);
-    state.selectedKeys = computed(() => route.name ? [route.name] : []).value
+    const selectedKeys = computed(() => route.name ? [route.name] : [])
+    // const openKeys = computed(() => props.collapsed ? route.matched.map((item) => item.name): [])
     state.openKeys = !props.collapsed ? (matchedKeys as RouteRecordName[]) : [];
     watch(
       () => props.collapsed,
@@ -59,7 +59,8 @@ export default {
     return {
       ...toRefs(state),
       theme: computed(() => store.state.app.theme),
-      menu
+      menu,
+      selectedKeys,
     };
   }
 };
