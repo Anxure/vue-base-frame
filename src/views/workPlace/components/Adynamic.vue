@@ -38,7 +38,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .dynamic-list {
-  /deep/ a {
+  :deep(a){
     color: @primary-color;
     margin-right:3px;
   }
