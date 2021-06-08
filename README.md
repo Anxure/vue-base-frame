@@ -25,51 +25,121 @@
 # 目录结构
 
 ```
-base-frame
-├─ mock
-├─ public
-├─ src
-│  ├─ api
-│  ├─ assets
-│  ├─ components
-│  ├─ config
-│  ├─ directives
-│  ├─ filters
-│  ├─ layout
-│  ├─ main.js
-│  ├─ mixins
-│  ├─ permission.js
-│  ├─ plugins
-│  ├─ router
-│  ├─ store
-│  ├─ utils
-│  ├─ App.vue
-│  └─ views
-├─ tests
+vue3.0-base-frame
 ├─ .browserslistrc
-├─ .editorconfig
+├─ .env,production
 ├─ .env.development
-├─ .env.production
 ├─ .eslintrc.js
 ├─ .gitignore
 ├─ babel.config.js
+├─ LICENSE
+├─ mock
+│  ├─ index.ts
+│  ├─ module
+│  │  ├─ menu.ts
+│  │  └─ user.ts
+│  └─ util.ts
 ├─ package-lock.json
 ├─ package.json
-├─ developmentNorm.md
+├─ public
+│  ├─ favicon.ico
+│  └─ index.html
 ├─ README.md
-└─ vue.config.js
+├─ src
+│  ├─ api
+│  │  ├─ model
+│  │  │  └─ userModel.ts
+│  │  └─ user.ts
+│  ├─ App.vue
+│  ├─ assets
+│  │  ├─ iconfont
+│  │  │  └─ iconfont.js
+│  │  ├─ image
+│  │  │  ├─ avatar.png
+│  │  │  ├─ login
+│  │  │  │  └─ login.svg
+│  │  │  └─ workplace.jpg
+│  │  ├─ logo.png
+│  │  └─ style
+│  │     ├─ common.less
+│  │     ├─ flex.less
+│  │     ├─ iconfont.css
+│  │     ├─ layout.less
+│  │     ├─ size.less
+│  │     └─ variables.less
+│  ├─ components
+│  │  └─ TestProps.vue
+│  ├─ config
+│  │  └─ globalSetting.ts
+│  ├─ enums
+│  │  └─ http.ts
+│  ├─ layout
+│  │  ├─ breadcrumb
+│  │  │  └─ Index.vue
+│  │  ├─ Index.vue
+│  │  ├─ logo
+│  │  │  └─ Index.vue
+│  │  ├─ nav
+│  │  │  └─ Index.vue
+│  │  ├─ PageView.vue
+│  │  └─ sidebar
+│  │     ├─ Index.vue
+│  │     └─ SiderItem.vue
+│  ├─ main.ts
+│  ├─ permission.ts
+│  ├─ plugin
+│  │  └─ antd.ts
+│  ├─ router
+│  │  ├─ index.ts
+│  │  └─ router.ts
+│  ├─ shims-vue.d.ts
+│  ├─ store
+│  │  ├─ index.ts
+│  │  └─ modules
+│  │     ├─ app.ts
+│  │     └─ user.ts
+│  ├─ types
+│  │  ├─ axios.d.ts
+│  │  ├─ global.d.ts
+│  │  └─ module
+│  │     └─ common.d.ts
+│  ├─ utils
+│  │  ├─ index.ts
+│  │  ├─ request.ts
+│  │  └─ storage.ts
+│  └─ views
+│     ├─ exception
+│     │  ├─ 403.vue
+│     │  └─ 404.vue
+│     ├─ form
+│     │  ├─ AdvancedFrom.vue
+│     │  └─ BaseForm.vue
+│     ├─ login
+│     │  └─ Index.vue
+│     └─ workPlace
+│        ├─ components
+│        │  ├─ Adynamic.vue
+│        │  ├─ Agroup.vue
+│        │  ├─ Aheader.vue
+│        │  ├─ Aimg.vue
+│        │  ├─ Aproject.vue
+│        │  ├─ AquickNav.vue
+│        │  └─ data.ts
+│        └─ Index.vue
+├─ tsconfig.json
+├─ vue.config.js
+└─ yarn.lock
 
 ```
-
 # 快速开始
 ##### install dependencies
-npm install
+
+yarn / npm install
 
 #####  serve with hot reload at localhost:8089
-npm run serve
+
+yarn serve / npm run serve
 
 #####  build for production with minification
-npm run build
 
-#####  build for production and view the bundle analyzer report
-npm run build --report
+yarn build / npm run build
