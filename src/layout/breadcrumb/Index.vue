@@ -1,13 +1,17 @@
 <template>
   <div class="breadcrumb-content">
-    <span class="trigger" @click="handleCollapse"> <i :class="['iconfont', collapsed ? 'icon-menu-unfold3' : 'icon-menu-fold']"></i></span>
+    <span class="trigger" @click="handleCollapse">
+      <svg class="icon" aria-hidden="true">
+        <use :xlink:href="collapsed ? '#icon-menu-unfold3' : '#icon-menu-fold'"></use>
+      </svg>
+    </span>
     <a-breadcrumb class="breadcrumb">
       <a-breadcrumb-item v-for="item in breadContent" :key="item.name">{{ item.meta.title }}</a-breadcrumb-item>
     </a-breadcrumb>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, watch,  } from 'vue';
+import { defineComponent, reactive, toRefs, watch } from 'vue';
 import { useRoute, RouteLocationMatched } from 'vue-router';
 export default defineComponent({
   props: {
@@ -20,16 +24,19 @@ export default defineComponent({
     const route = useRoute();
     const state = reactive({
       breadContent: [] as RouteLocationMatched[]
-    })
-    const matched = [...route.matched]
-    state.breadContent = matched.splice(1)
+    });
+    const matched = [...route.matched];
+    state.breadContent = matched.splice(1);
     function handleCollapse() {
       emit('update:collapsed', !props.collapsed);
     }
-    watch(() => route.name, () => {
-      const matched = [...route.matched]
-      state.breadContent = matched.splice(1)
-    })
+    watch(
+      () => route.name,
+      () => {
+        const matched = [...route.matched];
+        state.breadContent = matched.splice(1);
+      }
+    );
     return {
       handleCollapse,
       ...toRefs(state)

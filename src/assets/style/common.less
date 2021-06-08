@@ -1,5 +1,5 @@
-// @font-face { font-family:'electronicFont'; src: url("../font/ds-digital.woff.ttf"); }
-// @font-face { font-family:'blFont'; src: url("../font/ds-baoli.TTF"); }
+@import url('./size.less');
+@import url('./flex.less');
 p {
   margin: 0;
 }
@@ -51,24 +51,17 @@ body {
   font-weight: 400;
   color: @gray-text;
 }
-.flex {
-  display: flex;
+.center{
+  text-align: center;
 }
-.flex-satrt {
-  justify-content: flex-start;
+.auto{
+  margin: 0 auto;
 }
-.flex-end {
-  justify-content: flex-end;
+.overflow-hidden{
+  overflow: hidden;
 }
-.flex-center {
-  justify-content: center;
-}
-.space-between {
-  justify-content: space-between;
-}
-.space-around {
-  justify-content: space-around;
-}
-.align-item-center{
-    align-items: center
+.overflow-hidden-one{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

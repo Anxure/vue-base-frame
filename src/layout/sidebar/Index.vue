@@ -1,19 +1,22 @@
 <template>
-    <a-menu class="menu-content" :theme="theme" mode="inline" :inline-collapsed="collapsed" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
-      <template v-for="item in menu" :key="item.name">
-        <template v-if="item.children && item.children.length > 0">
-          <sider-item :menu-info="item" :key="item.name"></sider-item>
-        </template>
-        <a-menu-item v-else :key="item.name">
-          <router-link :to="item.path">
-            <span class="anticon">
-            <i :class="['iconfont', `icon-${item.icon}`]"></i>
-            </span>
-            <span>{{ item.title }}</span>
-          </router-link>
-        </a-menu-item>
+  <a-menu class="menu-content" :theme="theme" mode="inline" :inline-collapsed="collapsed" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
+    <template v-for="item in menu" :key="item.name">
+      <template v-if="item.children && item.children.length > 0">
+        <sider-item :menu-info="item" :key="item.name"></sider-item>
       </template>
-    </a-menu>
+      <a-menu-item v-else :key="item.name">
+        <router-link :to="item.path">
+          <span class="anticon">
+            <svg class="icon" aria-hidden="true">
+              <use :xlink:href="`#icon-${item.icon}`"></use>
+            </svg>
+            <i :class="['iconfont', `icon-${item.icon}`]"></i>
+          </span>
+          <span>{{ item.title }}</span>
+        </router-link>
+      </a-menu-item>
+    </template>
+  </a-menu>
 </template>
 .ant-menu-inline-collapsed>.ant-menu-item .anticon+span
 <script lang="ts">
@@ -33,7 +36,7 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      openKeys: ['']  as RouteRecordName [],
+      openKeys: [''] as RouteRecordName[],
       selectedKeys: [''] as RouteRecordName[]
     });
     const store = useStore();
@@ -41,15 +44,18 @@ export default {
     const menu = computed(() => store.state.user.menu);
     const matchedKeys = route.matched.map((item) => item.name);
     state.selectedKeys = route.name ? [route.name] : [];
-    state.openKeys = !props.collapsed ? matchedKeys  as RouteRecordName [] : [];
-    watch(() => props.collapsed, (value, newValue) => {
-      const matchedKeys = route.matched.map((item) => item.name);
-      if(newValue) {
-        state.openKeys = matchedKeys  as RouteRecordName []
-      } else {
-        state.openKeys = []
+    state.openKeys = !props.collapsed ? (matchedKeys as RouteRecordName[]) : [];
+    watch(
+      () => props.collapsed,
+      (value, newValue) => {
+        const matchedKeys = route.matched.map((item) => item.name);
+        if (newValue) {
+          state.openKeys = matchedKeys as RouteRecordName[];
+        } else {
+          state.openKeys = [];
+        }
       }
-    });
+    );
     return {
       ...toRefs(state),
       theme: computed(() => store.state.app.theme),
@@ -64,7 +70,7 @@ export default {
   width: 0;
   display: inline-block;
 }
-.menu-content{
+.menu-content {
   // overflow-x: hidden;
   // overflow-y: scroll;
   max-height: calc(100vh - 64px);

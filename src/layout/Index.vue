@@ -11,7 +11,7 @@
       </a-layout-sider>
       <a-layout-content>
         <layout-breadcrumb v-model:collapsed="collapsed"></layout-breadcrumb>
-        <div class="app-main" :style="{ margin: '16px', padding: '24px', background: '#fff', minHeight: '280px' }">
+        <div class="app-main" :style="{ margin: '16px', minHeight: '280px' }">
           <router-view></router-view>
         </div>
       </a-layout-content>
