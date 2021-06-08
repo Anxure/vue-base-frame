@@ -2,7 +2,7 @@
   <div class="login-container">
     <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form">
       <div class="title-container">
-        <h3 class="title">{{formTitle}}</h3>
+        <h3 class="title">{{ formTitle }}</h3>
       </div>
       <a-form-item label="用户名：" v-bind="validateInfos.username">
         <a-input v-model:value="formData.username" placeholder="默认账号为admin/test" />
@@ -11,9 +11,7 @@
         <a-input-password v-model:value="formData.password" placeholder="默认密码为123456" :visibilityToggle="false" />
       </a-form-item>
       <a-form-item :wrapper-col="{ span: 20, offset: 4 }">
-        <a-button type="primary" class="submit-btn" @click.enter="handleLogin">
-          登录
-        </a-button>
+        <a-button type="primary" class="submit-btn" @click.enter="handleLogin"> 登录 </a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -22,17 +20,17 @@
 import { reactive, toRaw, defineComponent, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { useForm } from '@ant-design-vue/use';
-import { login } from '@/api/user'
-import {LoginParams } from '@/api/model/userModel'
-import { setStore } from '@/utils/storage'
-import { useStore } from 'vuex'
+import { login } from '@/api/user';
+import { LoginParams } from '@/api/model/userModel';
+import { setStore } from '@/utils/storage';
+import { useStore } from 'vuex';
 interface DataProps {
-    formTitle: string;
-    formData: LoginParams;
+  formTitle: string;
+  formData: LoginParams;
 }
 export default defineComponent({
   setup() {
-    const loginData : DataProps = reactive({
+    const loginData: DataProps = reactive({
       formTitle: 'vue3-base-frame',
       formData: {
         username: '',
@@ -40,7 +38,7 @@ export default defineComponent({
       }
     });
     const router = useRouter();
-    const store = useStore()
+    const store = useStore();
     const { validate, validateInfos } = useForm(
       loginData.formData,
       reactive({
@@ -58,23 +56,24 @@ export default defineComponent({
         ]
       })
     );
-    const handleLogin = (e: { preventDefault: () => void; }) => {
+    const handleLogin = (e: { preventDefault: () => void }) => {
       e.preventDefault();
       validate()
         .then(async () => {
-          const {result, code} = await login(toRaw(loginData.formData))
+          const { result, code } = await login(toRaw(loginData.formData));
           if (code === 0) {
-            setStore('userInfo', result)
-            store.commit('user/SETUSERINFO', result)
-            store.dispatch('user/getMenu', {id: result.id})
-            router.push('/workplace');
+            setStore('userInfo', result);
+            store.commit('user/SETUSERINFO', result);
+            store.dispatch('user/getMenu', { id: result.id }).then(() => {
+              router.push('/workplace');
+            });
           }
         })
         .catch((err) => {
           console.log('error', err);
         });
     };
-    const refData = toRefs(loginData)
+    const refData = toRefs(loginData);
     return {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
