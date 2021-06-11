@@ -46,6 +46,7 @@
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
 import { defineComponent, reactive, ref,  toRaw,  UnwrapRef } from 'vue';
 import  { Moment } from 'moment';
+import { message } from 'ant-design-vue'
 interface FormState {
   name: string;
   date: Moment[];
@@ -104,6 +105,7 @@ export default defineComponent({
             date: [start, end]
           })
           console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', formData);
+          message.info('请打开控制台查看输出值')
         })
         .catch((error: ValidateErrorEntity<FormState>) => {
           console.log('error', error);
