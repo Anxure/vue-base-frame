@@ -47,6 +47,7 @@ import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
 import { defineComponent, reactive, ref,  toRaw,  UnwrapRef } from 'vue';
 import  { Moment } from 'moment';
 import { message } from 'ant-design-vue'
+import {cloneDeep} from 'lodash-es'
 interface FormState {
   name: string;
   date: Moment[];
@@ -98,13 +99,15 @@ export default defineComponent({
       formRef.value
         .validate()
         .then(() => {
-          const [startTime, endTime] = toRaw(formState.date)
+          const formData = cloneDeep(formState)
+          console.log(formData.date)
+          const [startTime, endTime] = formData.date
           const start = startTime.format(dateFormat.value)
           const end = endTime.format(dateFormat.value)
-          const formData = Object.assign(toRaw(formState), {
+          const submitFormData = Object.assign(toRaw(formData), {
             date: [start, end]
           })
-          console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', formData);
+          console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', submitFormData);
           message.info('请打开控制台查看输出值')
         })
         .catch((error: ValidateErrorEntity<FormState>) => {
