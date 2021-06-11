@@ -73,13 +73,12 @@ export default defineComponent({
           console.log('error', err);
         });
     };
-    const refData = toRefs(loginData);
     return {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
       validateInfos,
       handleLogin,
-      ...refData
+      ...toRefs(loginData)
     };
   }
 });
