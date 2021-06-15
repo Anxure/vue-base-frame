@@ -44,10 +44,9 @@
 
 <script lang="ts">
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
-import { defineComponent, reactive, ref,  toRaw,  UnwrapRef } from 'vue';
+import { defineComponent, reactive, ref, UnwrapRef } from 'vue';
 import  { Moment } from 'moment';
 import { message } from 'ant-design-vue'
-import {cloneDeep} from 'lodash-es'
 interface FormState {
   name: string;
   date: Moment[];
@@ -98,13 +97,11 @@ export default defineComponent({
     const onSubmit = () => {
       formRef.value
         .validate()
-        .then(() => {
-          const formData = cloneDeep(formState)
-          console.log(formData.date)
-          const [startTime, endTime] = formData.date
+        .then(values => {
+          const [startTime, endTime] = values.date
           const start = startTime.format(dateFormat.value)
           const end = endTime.format(dateFormat.value)
-          const submitFormData = Object.assign(toRaw(formData), {
+          const submitFormData = Object.assign(values, {
             date: [start, end]
           })
           console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', submitFormData);
