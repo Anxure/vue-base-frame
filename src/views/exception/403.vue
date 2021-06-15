@@ -6,7 +6,7 @@
       </svg>
     </div>
     <div class="title">抱歉，你当前没有权限访问</div>
-    <a-button class="t-3" type="primary" :loading="loading" @click="goToHome">返回首页</a-button>
+    <a-button class="t-3" type="primary"  @click="goToHome">返回首页</a-button>
   </div>
 </template>
 
