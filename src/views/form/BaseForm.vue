@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
-import { defineComponent, reactive, ref, UnwrapRef } from 'vue';
+import { defineComponent, reactive, ref, UnwrapRef, toRaw } from 'vue';
 import  { Moment } from 'moment';
 import { message } from 'ant-design-vue'
 interface FormState {
@@ -101,7 +101,7 @@ export default defineComponent({
           const [startTime, endTime] = values.date
           const start = startTime.format(dateFormat.value)
           const end = endTime.format(dateFormat.value)
-          const submitFormData = Object.assign(values, {
+          const submitFormData = Object.assign(toRaw(values), {
             date: [start, end]
           })
           console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', submitFormData);
