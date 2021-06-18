@@ -113,6 +113,11 @@ export default defineComponent({
   background: @light-theme-header;
   border: 1px solid #eee;
   color: hsla(0, 0%, 100%, 0.85);
+  .api-text,
+  .notice,
+  .user-name {
+     color: hsla(0, 0%, 100%, 0.85);
+  }
 }
 .dark.layout-header {
   background: @dark-theme-header;
