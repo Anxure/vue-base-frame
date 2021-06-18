@@ -1,5 +1,5 @@
 <template>
-  <a-menu class="menu-content" :theme="theme" mode="inline" :inline-collapsed="collapsed" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
+  <a-menu class="menu-content" :theme="theme" mode="inline" :inline-collapsed="collapsed" :selectedKeys="selectedKeys" :openKeys="openKeys">
     <template v-for="item in menu" :key="item.name">
       <template v-if="item.children && item.children.length > 0">
         <sider-item :menu-info="item" :key="item.name"></sider-item>
@@ -18,11 +18,10 @@
     </template>
   </a-menu>
 </template>
-.ant-menu-inline-collapsed>.ant-menu-item .anticon+span
 <script lang="ts">
-import { computed, reactive, toRefs, watch } from 'vue';
+import { computed } from 'vue';
+import { useMenuState } from '@/hooks/useMenuState'
 import { useStore } from 'vuex';
-import { RouteRecordName, useRoute } from 'vue-router';
 import SiderItem from './SiderItem.vue';
 export default {
   components: {
@@ -35,32 +34,14 @@ export default {
     }
   },
   setup(props) {
-    const state = reactive({
-      openKeys: [''] as RouteRecordName[],
-    });
     const store = useStore();
-    const route = useRoute();
     const menu = computed(() => store.state.user.menu);
-    const matchedKeys = route.matched.map((item) => item.name);
-    const selectedKeys = computed(() => route.name ? [route.name] : [])
-    // const openKeys = computed(() => props.collapsed ? route.matched.map((item) => item.name): [])
-    state.openKeys = !props.collapsed ? (matchedKeys as RouteRecordName[]) : [];
-    watch(
-      () => props.collapsed,
-      (value, newValue) => {
-        const matchedKeys = route.matched.map((item) => item.name);
-        if (newValue) {
-          state.openKeys = matchedKeys as RouteRecordName[];
-        } else {
-          state.openKeys = [];
-        }
-      }
-    );
+    const { selectedKeys, openKeys } = useMenuState(props.collapsed)
     return {
-      ...toRefs(state),
       theme: computed(() => store.state.app.theme),
       menu,
       selectedKeys,
+      openKeys
     };
   }
 };
@@ -72,9 +53,6 @@ export default {
   display: inline-block;
 }
 .menu-content {
-  // overflow-x: hidden;
-  // overflow-y: scroll;
   max-height: calc(100vh - 64px);
-  // width: calc(100% + 17px);
 }
 </style>
