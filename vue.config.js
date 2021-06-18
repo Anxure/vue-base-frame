@@ -54,9 +54,7 @@ module.exports = {
     // );
     // 移除项目中的console,debugger
     config.optimization.minimizer('terser').tap(args => {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       args[0].terserOptions.compress.drop_console = true
-      // eslint-disable-next-line @typescript-eslint/camelcase
       args[0].terserOptions.compress.drop_debugger = true
       return args
     })
