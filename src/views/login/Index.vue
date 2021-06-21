@@ -86,10 +86,11 @@ export default defineComponent({
           const { result, code } = await login(toRaw(loginData.formData));
           if (code === 0) {
             setStore('userInfo', result);
+            setStore('admin_token', 'dwafewfwefwgergergergergergerg')
             store.commit('user/SETUSERINFO', result);
-            store.dispatch('user/getMenu', { id: result.id }).then(() => {
-            router.push('/workplace');
-            });
+            const userMenus = await store.dispatch('user/getMenu', { id: result.id })
+            const { path } = userMenus[0]
+            router.push({path})
           }
         })
         .catch((err) => {
