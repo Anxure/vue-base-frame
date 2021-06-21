@@ -28,7 +28,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: '/form',
         name: 'form',
-        // redirect: '/form/base-form',
+        redirect: '/form/base-form',
         component: () => import('@/layout/PageView.vue'),
         meta: { title: '表单页' },
         children: [
@@ -49,7 +49,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: '/exception',
         name: 'exception',
-        // redirect: '/exception/403',
+        redirect: '/exception/403',
         component: () => import('@/layout/PageView.vue'),
         meta: { title: '异常页' },
         children: [
@@ -70,3 +70,9 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     ]
   }
 ]
+// 未匹配到路由时显示的页面
+export const noMatchRoute = {
+  path: '/:pathMatch(.*)*',
+  name: 'notFound',
+  redirect: '/404'
+};

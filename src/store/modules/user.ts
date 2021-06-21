@@ -2,7 +2,7 @@ import { LoginModel, MenuParams, MenuModel } from '@/api/model/userModel'
 import { getStore, setStore } from '@/utils/storage'
 import { getMenu }from '@/api/user'
 import { Module } from 'vuex'
-interface UserState {
+export interface UserState {
   userInfo: LoginModel | null | string,
   menu: MenuModel[]
 }
@@ -28,8 +28,10 @@ export default {
       const { result, code } = await getMenu(params)
       if (code === 0) {
         console.log('%cuser.ts line:29 result', 'color: #007acc;', result);
+        // 将后台菜单转换为一维数组
         setStore('userMenu', result)
         commit('SET_MENU', result)
+        return result
       }
     }
   }

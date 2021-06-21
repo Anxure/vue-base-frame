@@ -6,6 +6,6 @@ export function login(params: LoginParams):Promise<IResponseData<LoginModel>>{
   return  request.post('/login', params)
 }
 
-export function getMenu(params: MenuParams): Promise<IResponseData<MenuModel>> {
+export function getMenu(params: MenuParams): Promise<IResponseData<Array<MenuModel>>> {
   return request.get('/getMenuTree', { params })
 }

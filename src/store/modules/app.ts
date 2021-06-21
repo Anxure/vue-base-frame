@@ -1,4 +1,4 @@
-interface AppState {
+export interface AppState {
   collapsed: boolean,
   theme: string
 }

@@ -12,7 +12,6 @@ import '@/assets/style/common.less'
 // mock
 import '../mock'
 // import '@/assets/style/variables.less'
-import './permission' // permission control
 createApp(App)
   .use(store)
   .use(antd)

@@ -43,12 +43,12 @@ export const menuTree = [
   }
 ]
 export const testMenuTree = [
-  {
-    title: '工作台',
-    name: 'dash',
-    path: '/workplace',
-    icon: 'gongzuotai'
-  },
+  // {
+  //   title: '工作台',
+  //   name: 'workplace',
+  //   path: '/workplace',
+  //   icon: 'gongzuotai'
+  // },
   {
     title: '表单页',
     name: 'form',
@@ -59,7 +59,7 @@ export const testMenuTree = [
         title: '基础表单',
         name: 'base-form',
         path: '/form/base-form'
-      },
+      }
       // {
       //   title: '高级表单',
       //   name: 'advanced-form',
