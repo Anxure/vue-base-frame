@@ -40,41 +40,6 @@ router.beforeEach(async (to, from, next) => {
     routerLoaded = true
     next({ ...to, replace: true })
   }
-  // if (hasToken) {
-  //   // const menusStore = computed(() => store.state.user.userRouter)
-  //   // const menus = useLoopTranformRouter(menusStore.value)
-  //   // const userInfo = JSON.parse(getStore('userInfo')!)
-  //   if (isAddRouter) {
-  //     if (to.path === '/login') {
-  //       const userAsyncRouter = computed(() => store.state.user.userRouter)
-  //       const { path } = userAsyncRouter[0].children![0]
-  //       next({ path });
-  //       NProgress.done();
-  //     } else {
-  //       next()
-  //     }
-  //   } else {
-  //     let needAddRouter:RouteRecordRaw[] = []
-  //     if (!menusStore.value || menusStore.value.length === 0) {
-  //       const useMenu = await store.dispatch('user/getMenu', { id: userInfo.id })
-  //       needAddRouter = useGetAllowRoute(asyncRoutes, useMenu)
-  //     } else {
-  //       needAddRouter = useGetAllowRoute(asyncRoutes, menus)
-  //     }
-  //     needAddRouter.push(noMatchRoute)
-  //     needAddRouter.map((item) => router.addRoute(item));
-  //     isAddRouter = true;
-  //     next({ ...to, replace: true });
-  //   }
-  // } else {
-  //   isAddRouter = false
-  //   if (whiteRouterList.includes(to.path)) {
-  //     next()
-  //   } else {
-  //     next(`/login?redirect=${to.fullPath}`);
-  //     NProgress.done();
-  //   }
-  // }
 })
 router.afterEach(() => {
   NProgress.done() // finish progress bar
