@@ -30,16 +30,6 @@ export default {
       type: Object,
       default: () => ({})
     }
-  },
-  // components: {
-  //   'sub-menu':
-  // },
-  created() {
-    // console.log('%cSiderItem.vue line:29 object', 'color: #007acc;', this.$props);
-    console.log(11111);
-  },
-  setup(props) {
-    console.log('%cSiderItem.vue line:29 object', 'color: #007acc;', props.menuInfo);
   }
 };
 </script>

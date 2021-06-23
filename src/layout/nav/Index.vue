@@ -49,6 +49,7 @@ import { FileOutlined, BellOutlined, DownOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue';
 import {removeAll} from '@/utils/storage';
 import headerImg from '@/assets/image/avatar.png';
+import { resetRouter } from '@/router';
 export default defineComponent({
   components: {
     FileOutlined,
@@ -63,6 +64,7 @@ export default defineComponent({
     }
     function loginOut() {
       removeAll()
+      resetRouter()
       router.push('/login')
 
     }
