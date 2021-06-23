@@ -12,11 +12,13 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router'
+import { useBackToIndex } from '@/hooks/useBackToIndex'
 export default {
   setup() {
     const router = useRouter()
+    const path = useBackToIndex()
     function goToHome() {
-      router.push('/workplace')
+      router.push({path})
     }
     return {
       goToHome
