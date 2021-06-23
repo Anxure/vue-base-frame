@@ -13,13 +13,13 @@
         <div class="t-4 login-info color-f">@author: Anxure</div>
       </div>
       <div class="w-5 flex flex-center align-item-center">
-        <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form">
+        <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form" @submit="handleLogin">
           <div class="font-bold color-f form-title b-3">登录：</div>
           <a-form-item v-bind="validateInfos.username">
-            <a-input size="large" v-model:value="formData.username" placeholder="默认账号为admin/test" />
+            <a-input size="large" v-model:value="formData.username"  placeholder="默认账号为admin/test" />
           </a-form-item>
           <a-form-item v-bind="validateInfos.password">
-            <a-input-password size="large" v-model:value="formData.password" placeholder="默认密码为123456" :visibilityToggle="false" />
+            <a-input-password size="large" v-model:value="formData.password"  placeholder="默认密码为123456" :visibilityToggle="false" />
           </a-form-item>
           <a-form-item>
             <div class="flex space-between">
@@ -28,7 +28,7 @@
             </div>
           </a-form-item>
           <a-form-item :wrapper-col="{ span: 20, offset: 0 }">
-            <a-button type="primary" size="large" class="submit-btn" @click.enter="handleLogin"> 登录 </a-button>
+            <a-button type="primary" size="large" class="submit-btn" html-type="submit" :loading="loginLoading"> 登录 </a-button>
           </a-form-item>
         </a-form>
       </div>
@@ -36,7 +36,7 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, toRaw, defineComponent, toRefs } from 'vue';
+import { reactive, toRaw, defineComponent, toRefs, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useForm } from '@ant-design-vue/use';
 import { login } from '@/api/user';
@@ -60,6 +60,7 @@ export default defineComponent({
         password: ''
       }
     });
+    const loginLoading = ref<boolean>(false)
     const router = useRouter();
     const store = useStore();
     const { validate, validateInfos } = useForm(
@@ -83,13 +84,16 @@ export default defineComponent({
       e.preventDefault();
       validate()
         .then(async () => {
+          loginLoading.value = true
           const { result, code } = await login(toRaw(loginData.formData));
+          loginLoading.value = false
           if (code === 0) {
             setStore('userInfo', result);
             setStore('admin_token', 'dwafewfwefwgergergergergergerg')
             store.commit('user/SETUSERINFO', result);
-            const userMenus = await store.dispatch('user/getMenu', { id: result.id })
-            const { path } = userMenus[0]
+            const { userMenu } = await store.dispatch('user/getMenu', { id: result.id })
+            console.log(userMenu, 'userMenu')
+            const { path } = userMenu[0].children![0]
             router.push({path})
           }
         })
@@ -103,6 +107,7 @@ export default defineComponent({
       validateInfos,
       handleLogin,
       backImg,
+      loginLoading,
       ...toRefs(loginData)
     };
   }
