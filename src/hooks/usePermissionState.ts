@@ -28,7 +28,6 @@ export /**
 */
 function useGetAllowRoute(asyncRoute: Array<RouteRecordRaw>, menus: Array<MenuModel>) {
  const userAsyncRouter: Array<RouteRecordRaw> = []
- console.log('%cpermission.ts line:45 object', 'color: #007acc;', asyncRoute, menus);
  asyncRoute.forEach(route => {
    const temp = {...route}
    const targetRoute = menus.find(r => r.path === route.path);
@@ -43,12 +42,14 @@ function useGetAllowRoute(asyncRoute: Array<RouteRecordRaw>, menus: Array<MenuMo
      userAsyncRouter.push(temp);
    } else {
      // 公共路由放行，这里预留出不需要鉴权的路由，在meta里面添加 {guest: true}
-     if (temp.children) {
-       temp.children = useGetAllowRoute(temp.children, menus);
+     if (route.path === '/' || route.meta?.guest) {
+       if (temp.children) {
+         temp.children = useGetAllowRoute(temp.children, menus);
+       }
+        userAsyncRouter.push(temp)
      }
-     userAsyncRouter.push(temp)
    }
  })
-  console.log(userAsyncRouter, 'userAsyncRouter')
+  console.log(userAsyncRouter, 'userAsyncRouter1111')
  return userAsyncRouter
 }

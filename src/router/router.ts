@@ -5,11 +5,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/Index.vue')
-  },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/exception/404.vue')
   }
 ]
 export const asyncRoutes: Array<RouteRecordRaw> = [
@@ -74,5 +69,5 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 export const noMatchRoute = {
   path: '/:pathMatch(.*)*',
   name: 'notFound',
-  redirect: '/404'
+  redirect: '/exception/404'
 };
