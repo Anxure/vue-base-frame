@@ -23,8 +23,8 @@
           </a-form-item>
           <a-form-item>
             <div class="flex space-between">
-              <a-checkbox v-model:checked="rememberMe">记住我</a-checkbox>
-              <a>忘记密码？</a>
+              <a-checkbox v-model:checked="rememberMe"><span class="color-f">记住我</span></a-checkbox>
+              <a class="color-f">忘记密码？</a>
             </div>
           </a-form-item>
           <a-form-item :wrapper-col="{ span: 20, offset: 0 }">
