@@ -23,7 +23,6 @@ const userInfo = ({ body }) => {
   console.log('%cuser.ts line:22 body', 'color: #007acc;', body);
   const { username, password } = getJson(body)
   const checkUser = defaultUserInfo.find(item => (item.username === username && item.password === password))
-  console.log('%cuser.ts line:25 object', 'color: #007acc;', checkUser);
   if (!checkUser) {
     return resultError('用户名或者密码错误')
   }
@@ -32,9 +31,7 @@ const userInfo = ({ body }) => {
     password: ''
   })
 }
-console.log('%cuser.ts line:35 object', 'color: #007acc;', menuTree);
 const getMenuTree = options => {
-  console.log('1111111111111111111111111')
   const queryParameters = getQueryParameters(options)
   const { id } = queryParameters
   let menu = []

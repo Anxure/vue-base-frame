@@ -37,8 +37,7 @@ export default defineComponent({
     AImg,
     AGroup
   },
-  setup(props) {
-    console.log(props)
+  setup() {
     const loading = ref<boolean>(true)
     setTimeout(() => {
       loading.value = false

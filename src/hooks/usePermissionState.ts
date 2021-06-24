@@ -50,6 +50,5 @@ function useGetAllowRoute(asyncRoute: Array<RouteRecordRaw>, menus: Array<MenuMo
      }
    }
  })
-  console.log(userAsyncRouter, 'userAsyncRouter1111')
  return userAsyncRouter
 }

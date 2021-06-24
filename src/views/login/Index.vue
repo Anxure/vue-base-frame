@@ -13,7 +13,7 @@
         <div class="t-4 login-info color-f">@author: Anxure</div>
       </div>
       <div class="w-5 flex flex-center align-item-center">
-        <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form" @submit="handleLogin" :model="formData">
+        <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form" @submit="handleLogin">
           <div class="font-bold color-f form-title b-3">登录：</div>
           <a-form-item v-bind="validateInfos.username">
             <a-input size="large" v-model:value="formData.username"  placeholder="默认账号为admin/test" />
@@ -81,10 +81,10 @@ export default defineComponent({
       })
     );
     const handleLogin = (e: { preventDefault: () => void }) => {
+      loginLoading.value = true
       e.preventDefault();
       validate()
         .then(async () => {
-          loginLoading.value = true
           const { result, code } = await login(toRaw(loginData.formData));
           loginLoading.value = false
           if (code === 0) {
@@ -98,6 +98,7 @@ export default defineComponent({
           }
         })
         .catch((err) => {
+          loginLoading.value = false
           console.log('error', err);
         });
     };

@@ -1,7 +1,5 @@
 import axios,{ AxiosRequestConfig, AxiosError }  from 'axios'
-// import { IResponseData } from '@/types/axios'
 import { HTTP_CODE } from '@/enums/http'
-// import { getStore } from '@/utils/storage'
 import { message } from 'ant-design-vue';
 // const baseUrl = process.env.NODE_ENV === 'production' ? '/api' : env.VUE_APP_API_HOST
 const request = axios.create({
@@ -45,7 +43,6 @@ request.interceptors.response.use(response => {
   }
 )
 export default request;
-// // post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
 function get(url: string, params = {}, config: AxiosRequestConfig) {
   return  request({ method: 'get', url, params, ...config })
 }
@@ -56,10 +53,3 @@ export {
   post,
   get
 }
-// export const get<T>:(url: string, params = {}, config: AxiosRequestConfig = {}) => Promise<T> = function (url: string, params = {}, config: AxiosRequestConfig = {}):Promise<T> { return request({ method: 'get', url, params, ...config })}
-
-// export const get = (url: string, params = {}, config: AxiosRequestConfig = {}) => request({ method: 'get', url, params, ...config })
-// export const post = (url: string, data = {}, config: AxiosRequestConfig = {}) => request({ method: 'post', url, data, ...config })
-// export const put = (url: string, data = {}, config: AxiosRequestConfig = {}) => request({ method: 'put', url, data, ...config })
-// export const patch = (url: string, data = {}, config: AxiosRequestConfig = {}) => request({ method: 'patch', url, data, ...config })
-// export const del = (url: string, data = {}, config: AxiosRequestConfig = {}) => request({ method: 'delete', url, data, ...config })
