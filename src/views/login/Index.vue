@@ -13,7 +13,7 @@
         <div class="t-4 login-info color-f">@author: Anxure</div>
       </div>
       <div class="w-5 flex flex-center align-item-center">
-        <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form" @submit="handleLogin">
+        <a-form :label-col="labelCol" :wrapper-col="wrapperCol" class="login-form" @submit="handleLogin" :model="formData">
           <div class="font-bold color-f form-title b-3">登录：</div>
           <a-form-item v-bind="validateInfos.username">
             <a-input size="large" v-model:value="formData.username"  placeholder="默认账号为admin/test" />
@@ -129,8 +129,6 @@ export default defineComponent({
     }
     .login-info {
       font-size: 18px;
-      a {
-      }
     }
     .login-form {
       width: 368px;
