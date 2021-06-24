@@ -23,7 +23,7 @@ router.beforeEach(async (to, from, next) => {
   const userInfo = JSON.parse(getStore('userInfo')!)
   // 未登录时,并且不是白名单路由，直接跳转登录页并且带上回调地址， 其余的直接放行
   if (!hasToken) {
-    return whiteRouterList.includes(to.path) ? next() : next(`/login?redirect=${to.fullPath}`)
+    return whiteRouterList.includes(to.path) ? next() : to.path === '/'? next('/login') :next(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
   }
   if (routerLoaded) {
     if (to.path === '/login') {

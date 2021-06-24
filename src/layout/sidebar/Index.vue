@@ -1,5 +1,5 @@
 <template>
-  <a-menu class="menu-content" :theme="theme" mode="inline" :inline-collapsed="collapsed" :selectedKeys="selectedKeys" :openKeys="openKeys">
+  <a-menu class="menu-content" :theme="theme" mode="inline" :selectedKeys="selectedKeys" :openKeys="openKeys">
     <template v-for="item in menu" :key="item.name">
       <template v-if="item.children && item.children.length > 0">
         <sider-item :menu-info="item" :key="item.name"></sider-item>
@@ -19,8 +19,8 @@
   </a-menu>
 </template>
 <script lang="ts">
-import { computed } from 'vue';
-import { useMenuState } from '@/hooks/useMenuState'
+import { computed, ref, watchEffect } from 'vue';
+import { RouteRecordName, useRoute } from 'vue-router'
 import { useStore } from 'vuex';
 import SiderItem from './SiderItem.vue';
 export default {
@@ -35,8 +35,14 @@ export default {
   },
   setup(props) {
     const store = useStore();
+    const route = useRoute()
+    let openKeys = ref<RouteRecordName[]>([]);
     const menu = computed(() => store.state.user.menu);
-    const { selectedKeys, openKeys } = useMenuState(props.collapsed)
+    const selectedKeys = computed(() => route.name ? [route.name] : [])
+    const matchedKeys = computed(() => route.matched.map((item) => item.name) as RouteRecordName[])
+    watchEffect(() => {
+      openKeys.value = props.collapsed ? [] : matchedKeys.value
+    })
     return {
       theme: computed(() => store.state.app.theme),
       menu,
