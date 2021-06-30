@@ -5,14 +5,17 @@
         <use :xlink:href="collapsed ? '#icon-menu-unfold3' : '#icon-menu-fold'"></use>
       </svg>
     </span>
-    <a-breadcrumb class="breadcrumb">
+    <a-breadcrumb class="breadcrumb" v-if="!useMultiTab">
       <a-breadcrumb-item v-for="item in breadContent" :key="item.name">{{ item.meta.title }}</a-breadcrumb-item>
     </a-breadcrumb>
+    <multi-tab v-else></multi-tab>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, watch } from 'vue';
 import { useRoute, RouteLocationMatched } from 'vue-router';
+import multiTab from '@/components/multiTab/Index.vue'
+import { layoutSetting } from '@/config/globalSetting'
 export default defineComponent({
   props: {
     collapsed: {
@@ -20,12 +23,14 @@ export default defineComponent({
       default: false
     }
   },
+  components: {multiTab},
   setup(props, { emit }) {
     const route = useRoute();
     const state = reactive({
       breadContent: [] as RouteLocationMatched[]
     });
     const matched = [...route.matched];
+    const useMultiTab = layoutSetting.showMultiTab
     state.breadContent = matched.splice(1);
     function handleCollapse() {
       emit('update:collapsed', !props.collapsed);
@@ -39,6 +44,7 @@ export default defineComponent({
     );
     return {
       handleCollapse,
+      useMultiTab,
       ...toRefs(state)
     };
   }
