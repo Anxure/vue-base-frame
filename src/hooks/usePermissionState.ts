@@ -20,13 +20,13 @@ export function useLoopTranformRouter(menus: Array<MenuModel>): Array<MenuModel>
   })
   return newMenus
 }
-export /**
+/**
 * @description: 获取当前用户已有的路由表
 * @param {Array} asyncRoute 当前的路由表
 * @param {*} menus 一维的菜单
-* @return {*}
+* @return {*} userAsyncRouter 已有权限的菜单
 */
-function useGetAllowRoute(asyncRoute: Array<RouteRecordRaw>, menus: Array<MenuModel>) {
+export function useGetAllowRoute(asyncRoute: Array<RouteRecordRaw>, menus: Array<MenuModel>) {
  const userAsyncRouter: Array<RouteRecordRaw> = []
  asyncRoute.forEach(route => {
    const temp = {...route}
