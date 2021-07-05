@@ -52,7 +52,7 @@ interface DataProps {
 }
 export default defineComponent({
   setup() {
-    const loginData: DataProps = reactive({
+    const loginData = reactive<DataProps>({
       formTitle: 'vue-base-frame',
       rememberMe: false,
       formData: {

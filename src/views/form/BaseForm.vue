@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
-import { defineComponent, reactive, ref, UnwrapRef, toRaw } from 'vue';
+import { defineComponent, reactive, ref, toRaw } from 'vue';
 import  { Moment } from 'moment';
 import { message } from 'ant-design-vue'
 interface FormState {
@@ -61,7 +61,7 @@ export default defineComponent({
   setup() {
     const formRef = ref();
     const dateFormat = ref('YYYY-MM-DD');
-    const formState: UnwrapRef<FormState> = reactive({
+    const formState = reactive<FormState>({
       name: '',
       date:  [],
       standard: '',
