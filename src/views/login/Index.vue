@@ -38,7 +38,7 @@
 <script lang="ts">
 import { reactive, toRaw, defineComponent, toRefs, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useForm } from '@ant-design-vue/use';
+import { Form } from 'ant-design-vue';
 import { login } from '@/api/user';
 import { LoginParams } from '@/api/model/userModel';
 import { setStore } from '@/utils/storage';
@@ -63,6 +63,7 @@ export default defineComponent({
     const loginLoading = ref<boolean>(false)
     const router = useRouter();
     const store = useStore();
+    const useForm = Form.useForm
     const { validate, validateInfos } = useForm(
       loginData.formData,
       reactive({
