@@ -8,7 +8,7 @@
       </a-col>
       <a-col :span="7">
         <a-form-item label="任务描述：" ref="taskDesc" name="taskDesc">
-         <a-input v-model:value="formState.taskDesc" placeholder="请输入任务描述" />
+          <a-input v-model:value="formState.taskDesc" placeholder="请输入任务描述" />
         </a-form-item>
       </a-col>
       <a-col :span="7">
@@ -31,7 +31,11 @@
       </a-col>
       <a-col :span="7">
         <a-form-item label="提醒日期：" ref="taskTime" name="taskTime">
-          <a-range-picker style="width: 100%" :format="dateFormat" v-model:value="formState.taskTime" />
+          <a-range-picker
+            style="width: 100%"
+            :format="dateFormat"
+            v-model:value="formState.taskTime"
+          />
         </a-form-item>
       </a-col>
       <a-col :span="7">
@@ -46,94 +50,85 @@
   </a-form>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ValidateErrorEntity } from 'ant-design-vue/lib/form/interface';
-import { defineComponent, reactive, UnwrapRef, ref, toRaw } from 'vue';
+import { reactive, UnwrapRef, ref, toRaw, defineExpose } from 'vue';
 import { Moment } from 'moment';
-export default defineComponent({
-  setup() {
-    interface FormState {
-      taskName: string;
-      taskDesc: string;
-      taskExecutor: string | undefined;
-      taskPerson: string | undefined;
-      taskTime: Moment[];
-      taskType: string | undefined;
-    }
-    const formRef = ref();
-    const dateFormat = 'YYYY-MM-DD';
-    const formState: UnwrapRef<FormState> = reactive({
-      taskName: '',
-      taskDesc: '',
-      taskExecutor: undefined,
-      taskPerson: undefined,
-      taskTime: [],
-      taskType: undefined
-    });
-    const rules = {
-      taskName: [
-        {
-          required: true,
-          message: '请填写任务名',
-          trigger: 'blur'
-        }
-      ],
-      taskDesc: [
-        {
-          required: true,
-          message: '请填写任务描述',
-          trigger: 'blur'
-        }
-      ],
-      taskExecutor: [
-        {
-          required: true,
-          message: '请选择任务执行人',
-          trigger: 'change'
-        }
-      ],
-      taskPerson: [
-        {
-          required: true,
-          message: '请选择责任人',
-          trigger: 'change'
-        }
-      ],
-      taskTime: [
-        {
-          required: true,
-          message: '请选择提醒日期',
-          trigger: 'change',
-          type: 'array'
-        }
-      ],
-      taskType: [
-        {
-          required: true,
-          message: '请选择任务类型',
-          trigger: 'change'
-        }
-      ]
-    };
-    const handleSubmit = () => {
-      formRef.value
-        .validate()
-        .then(() => {
-          console.log('values', formState, toRaw(formState));
-        })
-        .catch((error: ValidateErrorEntity<FormState>) => {
-          console.log('error', error);
-        });
-    };
-    return {
-      formState,
-      rules,
-      handleSubmit,
-      formRef,
-      dateFormat
-    };
-  }
+
+interface FormState {
+  taskName: string;
+  taskDesc: string;
+  taskExecutor: string | undefined;
+  taskPerson: string | undefined;
+  taskTime: Moment[];
+  taskType: string | undefined;
+}
+const formRef = ref();
+const dateFormat = 'YYYY-MM-DD';
+const formState: UnwrapRef<FormState> = reactive({
+  taskName: '',
+  taskDesc: '',
+  taskExecutor: undefined,
+  taskPerson: undefined,
+  taskTime: [],
+  taskType: undefined
 });
+const rules = {
+  taskName: [
+    {
+      required: true,
+      message: '请填写任务名',
+      trigger: 'blur'
+    }
+  ],
+  taskDesc: [
+    {
+      required: true,
+      message: '请填写任务描述',
+      trigger: 'blur'
+    }
+  ],
+  taskExecutor: [
+    {
+      required: true,
+      message: '请选择任务执行人',
+      trigger: 'change'
+    }
+  ],
+  taskPerson: [
+    {
+      required: true,
+      message: '请选择责任人',
+      trigger: 'change'
+    }
+  ],
+  taskTime: [
+    {
+      required: true,
+      message: '请选择提醒日期',
+      trigger: 'change',
+      type: 'array'
+    }
+  ],
+  taskType: [
+    {
+      required: true,
+      message: '请选择任务类型',
+      trigger: 'change'
+    }
+  ]
+};
+const handleSubmit = () => {
+  formRef.value
+    .validate()
+    .then(() => {
+      console.log('values', formState, toRaw(formState));
+    })
+    .catch((error: ValidateErrorEntity<FormState>) => {
+      console.log('error', error);
+    });
+};
+defineExpose({formRef})
 </script>
 
 <style scoped>

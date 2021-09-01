@@ -24,16 +24,8 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import headerImg from '@/assets/image/avatar.png';
-export default defineComponent({
-  setup() {
-    return {
-      headerImg
-    };
-  }
-});
 </script>
 
 <style scoped lang="less">

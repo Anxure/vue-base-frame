@@ -4,16 +4,8 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import workplaceImg from '@/assets/image/workplace.jpg'
-export default defineComponent({
-  setup () {
-    return {
-      workplaceImg
-    }
-  }
-})
 </script>
 <style lang="less" scoped>
   .img-list{

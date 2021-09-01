@@ -1,7 +1,13 @@
 <template>
   <div class="w-full h-full background-f">
     <div class="form-content w-full p-t-5">
-      <a-form ref="formRef" :model="formState" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
+      <a-form
+        ref="formRef"
+        :model="formState"
+        :rules="rules"
+        :label-col="{ span: 4 }"
+        :wrapper-col="{ span: 17 }"
+      >
         <a-form-item ref="name" label="标题" name="name">
           <a-input v-model:value="formState.name" placeholder="给目标起个名字" />
         </a-form-item>
@@ -43,9 +49,13 @@
 </template>
 
 <script lang="ts">
+
+</script>
+
+<script lang="ts" setup>
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
-import { defineComponent, reactive, ref, toRaw } from 'vue';
-import  { Moment } from 'moment';
+import { reactive, ref, toRaw } from 'vue';
+import { Moment } from 'moment';
 import { message } from 'ant-design-vue'
 interface FormState {
   name: string;
@@ -57,77 +67,61 @@ interface FormState {
   sex: string | undefined
   client: string
 }
-export default defineComponent({
-  setup() {
-    const formRef = ref();
-    const dateFormat = ref('YYYY-MM-DD');
-    const formState = reactive<FormState>({
-      name: '',
-      date:  [],
-      standard: '',
-      type: [],
-      desc: '',
-      inviter: '',
-      sex: undefined,
-      client: ''
-    });
-    const rules = {
-      name: [
-        { required: true, message: '请给目标取个名字', trigger: 'blur' },
-        { min: 3, max: 5, message: '长度在3-5个字符', trigger: 'blur' }
-      ],
-      date: [
-        {
-          required: true,
-          message: '请选择起止时间',
-          trigger: 'change',
-          type: 'array'
-        }
-      ],
-      standard: [{ required: true, message: '请输入衡量标准', trigger: 'blur' }],
-      type: [
-        {
-          type: 'array',
-          required: true,
-          message: '请选择邀请方式',
-          trigger: 'change'
-        }
-      ]
-    };
-    const onSubmit = () => {
-      formRef.value
-        .validate()
-        .then(values => {
-          const [startTime, endTime] = values.date
-          const start = startTime.format(dateFormat.value)
-          const end = endTime.format(dateFormat.value)
-          const submitFormData = Object.assign(toRaw(values), {
-            date: [start, end]
-          })
-          console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', submitFormData);
-          message.info('请打开控制台查看输出值')
-        })
-        .catch((error: ValidateErrorEntity<FormState>) => {
-          console.log('error', error);
-        });
-    };
-    const resetForm = () => {
-      formRef.value.resetFields();
-    };
-    return {
-      formRef,
-      labelCol: { span: 4 },
-      wrapperCol: { span: 17 },
-      other: '',
-      formState,
-      rules,
-      onSubmit,
-      resetForm,
-      dateFormat,
-      // formData
-    };
-  }
+const formRef = ref();
+const dateFormat = ref('YYYY-MM-DD');
+const formState = reactive<FormState>({
+  name: '',
+  date: [],
+  standard: '',
+  type: [],
+  desc: '',
+  inviter: '',
+  sex: undefined,
+  client: ''
 });
+const rules = {
+  name: [
+    { required: true, message: '请给目标取个名字', trigger: 'blur' },
+    { min: 3, max: 5, message: '长度在3-5个字符', trigger: 'blur' }
+  ],
+  date: [
+    {
+      required: true,
+      message: '请选择起止时间',
+      trigger: 'change',
+      type: 'array'
+    }
+  ],
+  standard: [{ required: true, message: '请输入衡量标准', trigger: 'blur' }],
+  type: [
+    {
+      type: 'array',
+      required: true,
+      message: '请选择邀请方式',
+      trigger: 'change'
+    }
+  ]
+};
+const onSubmit = () => {
+  formRef.value
+    .validate()
+    .then(values => {
+      const [startTime, endTime] = values.date
+      const start = startTime.format(dateFormat.value)
+      const end = endTime.format(dateFormat.value)
+      const submitFormData = Object.assign(toRaw(values), {
+        date: [start, end]
+      })
+      console.log('%cBaseForm.vue line:109 object', 'color: #007acc;', submitFormData);
+      message.info('请打开控制台查看输出值')
+    })
+    .catch((error: ValidateErrorEntity<FormState>) => {
+      console.log('error', error);
+    });
+};
+const resetForm = () => {
+  formRef.value.resetFields();
+};
 </script>
 
 <style lang="less" scoped>

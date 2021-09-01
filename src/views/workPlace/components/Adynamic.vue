@@ -24,16 +24,8 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { dynamicInfo } from './data';
-export default defineComponent({
-  setup() {
-    return {
-      dynamicInfo
-    };
-  }
-});
 </script>
 
 <style scoped lang="less">

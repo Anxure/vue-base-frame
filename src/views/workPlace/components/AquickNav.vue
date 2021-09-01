@@ -11,14 +11,6 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { quickNav } from './data'
-export default defineComponent({
-  setup() {
-    return {
-      quickNav
-    };
-  }
-});
 </script>

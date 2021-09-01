@@ -20,31 +20,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 import AHeader from './components/Aheader.vue'
 import AProject from './components/Aproject.vue'
 import ADynamic from './components/Adynamic.vue'
 import AQuickNav from './components/AquickNav.vue'
 import AGroup from './components/Agroup.vue'
 import AImg from './components/Aimg.vue'
-export default defineComponent({
-  components: {
-    AHeader,
-    AProject,
-    ADynamic,
-    AQuickNav,
-    AImg,
-    AGroup
-  },
-  setup() {
-    const loading = ref<boolean>(true)
-    setTimeout(() => {
-      loading.value = false
-    }, 1000)
-    return {
-      loading
-    }
-  }
-});
+
+const loading = ref<boolean>(true)
+setTimeout(() => {
+  loading.value = false
+}, 1000)
 </script>

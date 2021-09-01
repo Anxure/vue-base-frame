@@ -6,17 +6,8 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup () {
-    const groupData = ['Anxure', '摸鱼组', '躺平组', '开发组', '架构组']
-    return {
-      groupData
-    }
-  }
-})
+<script lang="ts" setup>
+const groupData = ['Anxure', '摸鱼组', '躺平组', '开发组', '架构组']
 </script>
 
 <style scoped>

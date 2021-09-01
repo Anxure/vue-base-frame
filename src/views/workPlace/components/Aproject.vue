@@ -19,16 +19,8 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { projectInfo } from './data';
-export default defineComponent({
-  setup() {
-    return {
-      projectInfo
-    };
-  }
-});
 </script>
 
 <style scoped lang="less">

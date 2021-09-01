@@ -8,7 +8,12 @@
       </a-col>
       <a-col :span="7">
         <a-form-item label="仓库域名：" ref="url" name="url">
-          <a-input addonBefore="http://" addonAfter=".com" v-model:value="formState.url" placeholder="请输入仓库域名" />
+          <a-input
+            addonBefore="http://"
+            addonAfter=".com"
+            v-model:value="formState.url"
+            placeholder="请输入仓库域名"
+          />
         </a-form-item>
       </a-col>
       <a-col :span="7">
@@ -46,94 +51,85 @@
   </a-form>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ValidateErrorEntity } from 'ant-design-vue/lib/form/interface';
-import { defineComponent, reactive, UnwrapRef, ref, toRaw } from 'vue';
+import { reactive, UnwrapRef, ref, toRaw, defineExpose } from 'vue';
 import { Moment } from 'moment';
-export default defineComponent({
-  setup() {
-    interface FormState {
-      name: string;
-      url: string;
-      owner: string | undefined;
-      approver: string | undefined;
-      time: Moment[];
-      type: string | undefined;
-    }
-    const formRef = ref();
-    const dateFormat = 'YYYY-MM-DD';
-    const formState: UnwrapRef<FormState> = reactive({
-      name: '',
-      url: '',
-      owner: undefined,
-      approver: undefined,
-      time: [],
-      type: undefined
-    });
-    const rules = {
-      name: [
-        {
-          required: true,
-          message: '请填写仓库名',
-          trigger: 'blur'
-        }
-      ],
-      url: [
-        {
-          required: true,
-          message: '请填写仓库域名',
-          trigger: 'blur'
-        }
-      ],
-      owner: [
-        {
-          required: true,
-          message: '请选择仓库管理员',
-          trigger: 'change'
-        }
-      ],
-      approver: [
-        {
-          required: true,
-          message: '请选择审批人',
-          trigger: 'change'
-        }
-      ],
-      time: [
-        {
-          required: true,
-          message: '请选择生效日期',
-          trigger: 'change',
-          type: 'array'
-        }
-      ],
-      type: [
-        {
-          required: true,
-          message: '请选择仓库类型',
-          trigger: 'change'
-        }
-      ]
-    };
-    const handleSubmit = () => {
-      formRef.value
-        .validate()
-        .then(() => {
-          console.log('values', formState, toRaw(formState));
-        })
-        .catch((error: ValidateErrorEntity<FormState>) => {
-          console.log('error', error);
-        });
-    };
-    return {
-      formState,
-      rules,
-      handleSubmit,
-      formRef,
-      dateFormat
-    };
-  }
+
+interface FormState {
+  name: string;
+  url: string;
+  owner: string | undefined;
+  approver: string | undefined;
+  time: Moment[];
+  type: string | undefined;
+}
+const formRef = ref();
+const dateFormat = 'YYYY-MM-DD';
+const formState: UnwrapRef<FormState> = reactive({
+  name: '',
+  url: '',
+  owner: undefined,
+  approver: undefined,
+  time: [],
+  type: undefined
 });
+const rules = {
+  name: [
+    {
+      required: true,
+      message: '请填写仓库名',
+      trigger: 'blur'
+    }
+  ],
+  url: [
+    {
+      required: true,
+      message: '请填写仓库域名',
+      trigger: 'blur'
+    }
+  ],
+  owner: [
+    {
+      required: true,
+      message: '请选择仓库管理员',
+      trigger: 'change'
+    }
+  ],
+  approver: [
+    {
+      required: true,
+      message: '请选择审批人',
+      trigger: 'change'
+    }
+  ],
+  time: [
+    {
+      required: true,
+      message: '请选择生效日期',
+      trigger: 'change',
+      type: 'array'
+    }
+  ],
+  type: [
+    {
+      required: true,
+      message: '请选择仓库类型',
+      trigger: 'change'
+    }
+  ]
+};
+const handleSubmit = () => {
+  formRef.value
+    .validate()
+    .then(() => {
+      console.log('values', formState, toRaw(formState));
+    })
+    .catch((error: ValidateErrorEntity<FormState>) => {
+      console.log('error', error);
+    });
+};
+defineExpose({formRef})
 </script>
 
 <style scoped>
