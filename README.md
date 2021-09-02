@@ -1,4 +1,4 @@
-# vue3-base-frame
+# vue-base-frame
 基于Vue、ant-design-vue的管理系统架构，让开发人员专注于业务，其他琐事，交给框架！
 
 感谢开源社区，感谢ant-design-vue团队提供的优秀开源项目!
