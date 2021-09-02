@@ -1,18 +1,17 @@
 <template>
   <div class="multi-tab-box">
-    <a-tabs v-model:activeKey="activeKey" type="editable-card" @edit="onEdit" hideAdd @tabClick="tabClick" :tabBarStyle="{ background: '#FFF', margin: 0, paddingLeft: '16px', paddingTop: '1px' }">
-      <a-tab-pane v-for="tab in pages" :key="tab.fullPath" :tab="tab.meta.title" :closable="pages.length > 1">
+    <a-tabs v-model:activeKey="tabOptions.activeKey" type="editable-card" @edit="onEdit" hideAdd @tabClick="tabClick" :tabBarStyle="{ background: '#FFF', margin: 0, paddingLeft: '16px', paddingTop: '1px' }">
+      <a-tab-pane v-for="tab in tabOptions.pages" :key="tab.fullPath" :tab="tab.meta.title" :closable="tabOptions.pages.length > 1">
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 
-<script lang="ts">
-import { reactive, toRefs, onMounted} from 'vue';
+<script lang="ts" setup>
+import { reactive, onMounted} from 'vue';
 import { onBeforeRouteUpdate, RouteLocationNormalized, useRoute, useRouter,RouteMeta } from 'vue-router';
-export default {
-  setup() {
-    interface Page {
+
+interface Page {
       meta: RouteMeta,
       fullPath: string
     }
@@ -63,13 +62,6 @@ export default {
         selectedLastPath();
       }
     }
-    return {
-      onEdit,
-      tabClick,
-      ...toRefs(tabOptions)
-    };
-  }
-};
 </script>
 
 <style lang="less" scoped>
