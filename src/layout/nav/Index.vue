@@ -24,7 +24,7 @@
           <a-avatar class="user-avatar" :src="headerImg">
             <!-- <template #icon><UserOutlined /></template> -->
           </a-avatar>
-          <span class="user-name">{{userInfo.username}}<DownOutlined /></span>
+          <span class="user-name">{{ userInfo.username }}<DownOutlined /></span>
         </div>
         <template #overlay>
           <a-menu>
@@ -41,44 +41,29 @@
   </a-layout-header>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
-import { useStore } from 'vuex';
+<script lang="ts" setup>
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { FileOutlined, BellOutlined, DownOutlined } from '@ant-design/icons-vue';
-import { message } from 'ant-design-vue';
-import {removeAll} from '@/utils/storage';
-import headerImg from '@/assets/image/avatar.png';
-import { resetRouter } from '@/router';
-export default defineComponent({
-  components: {
-    FileOutlined,
-    BellOutlined,
-    DownOutlined
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    function goToApi() {
-      message.info('功能暂未开发')
-    }
-    function loginOut() {
-      removeAll()
-      resetRouter()
-      router.push('/login')
-
-    }
-    return {
-      goToApi,
-      theme: computed(() => store.state.app.theme),
-      userInfo:computed(() => store.state.user.userInfo),
-      show: ref<boolean>(true),
-      activeKey: ref<string>('1'),
-      loginOut,
-      headerImg
-    };
-  }
-});
+import { FileOutlined, BellOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { message } from 'ant-design-vue'
+import { removeAll } from '@/utils/storage'
+import headerImg from '@/assets/image/avatar.png'
+import { resetRouter } from '@/router'
+const store = useStore()
+const router = useRouter()
+const theme = computed(() => store.state.app.theme)
+const userInfo = computed(() => store.state.user.userInfo)
+const show = ref<boolean>(true)
+const activeKey = ref<string>('1')
+function goToApi() {
+  message.info('功能暂未开发')
+}
+function loginOut() {
+  removeAll()
+  resetRouter()
+  router.push('/login')
+}
 </script>
 
 <style lang="less" scoped>
@@ -117,7 +102,7 @@ export default defineComponent({
   .api-text,
   .notice,
   .user-name {
-     color: hsla(0, 0%, 100%, 0.85);
+    color: hsla(0, 0%, 100%, 0.85);
   }
 }
 .dark.layout-header {

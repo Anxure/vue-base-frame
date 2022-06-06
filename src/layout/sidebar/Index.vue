@@ -18,39 +18,27 @@
     </template>
   </a-menu>
 </template>
-<script lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+<script lang="ts" setup>
+import { computed, ref, watchEffect } from 'vue'
 import { RouteRecordName, useRoute } from 'vue-router'
-import { useStore } from 'vuex';
-import SiderItem from './SiderItem.vue';
-export default {
-  components: {
-    SiderItem
-  },
-  props: {
-    collapsed: {
-      type: Boolean,
-      default: false
-    }
-  },
-  setup(props) {
-    const store = useStore();
-    const route = useRoute()
-    let openKeys = ref<RouteRecordName[]>([]);
-    const menu = computed(() => store.state.user.menu);
-    const selectedKeys = computed(() => route.name ? [route.name] : [])
-    const matchedKeys = computed(() => route.matched.map((item) => item.name) as RouteRecordName[])
-    watchEffect(() => {
-      openKeys.value = props.collapsed ? [] : matchedKeys.value
-    })
-    return {
-      theme: computed(() => store.state.app.theme),
-      menu,
-      selectedKeys,
-      openKeys
-    };
+import { useStore } from 'vuex'
+import SiderItem from './SiderItem.vue'
+const props = defineProps({
+  collapsed: {
+    type: Boolean,
+    default: false
   }
-};
+})
+const store = useStore()
+const route = useRoute()
+let openKeys = ref<RouteRecordName[]>([])
+const menu = computed(() => store.state.user.menu)
+const selectedKeys = computed(() => (route.name ? [route.name] : []))
+const matchedKeys = computed(() => route.matched.map(item => item.name) as RouteRecordName[])
+watchEffect(() => {
+  openKeys.value = props.collapsed ? [] : matchedKeys.value
+})
+const theme = computed(() => store.state.app.theme)
 </script>
 
 <style lang="less" scoped>

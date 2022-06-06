@@ -53,15 +53,14 @@
 
 <script lang="ts" setup>
 import { ValidateErrorEntity } from 'ant-design-vue/lib/form/interface';
-import { reactive, UnwrapRef, ref, toRaw, defineExpose } from 'vue';
-import { Moment } from 'moment';
+import { reactive, UnwrapRef, ref, toRaw } from 'vue';
 
 interface FormState {
   name: string;
   url: string;
   owner: string | undefined;
   approver: string | undefined;
-  time: Moment[];
+  time: [];
   type: string | undefined;
 }
 const formRef = ref();

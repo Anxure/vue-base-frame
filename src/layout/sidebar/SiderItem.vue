@@ -3,7 +3,7 @@
     <template #title>
       <span class="anticon">
         <svg class="icon" aria-hidden="true">
-           <use :xlink:href="`#icon-${menuInfo.icon}`"></use>
+          <use :xlink:href="`#icon-${menuInfo.icon}`"></use>
         </svg>
       </span>
       <span>{{ menuInfo.title }}</span>
@@ -23,13 +23,16 @@
   </a-sub-menu>
 </template>
 <script lang="ts">
+// 因为不是vite，目前没有找到好的方式
 export default {
-  name: 'SubMenu',
-  props: {
-    menuInfo: {
-      type: Object,
-      default: () => ({})
-    }
+  name: 'SubMenu'
+}
+</script>
+<script lang="ts" setup>
+defineProps({
+  menuInfo: {
+    type: Object,
+    default: () => ({})
   }
-};
+})
 </script>

@@ -1,28 +1,14 @@
 <template>
-  <div class="logo" >{{title}}</div>
+  <div class="logo">{{ title }}</div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
 import { layoutSetting } from '@/config/globalSetting'
-import { useStore } from 'vuex'
-export default defineComponent({
-  setup () {
-    const store = useStore()
-    const collapsed = computed(() => {
-      return store.state.app.collapsed
-    })
-    const title = layoutSetting.title
-    return {
-      collapsed,
-      title
-    }
-  }
-})
+const title = layoutSetting.title
 </script>
 
 <style scoped lang="less">
- .logo{
+.logo {
   height: 32px;
   margin: 16px;
   font-size: 30px;
@@ -30,7 +16,7 @@ export default defineComponent({
   line-height: 32px;
   font-weight: bold;
 }
-.dark .logo{
-  color:#FFF;
+.dark .logo {
+  color: #fff;
 }
 </style>
